@@ -85,18 +85,20 @@ struct ThemeManager {
         JSHeaderLabel.appearance().textColor = theme.headingColor
         JSActionLabel.appearance().textColor = theme.actionColor
         UISwitch.appearance().thumbTintColor = theme.actionColor
-        if #available(iOS 12.0, *) {
+        if #available(iOS 13.0, *) {
             UISegmentedControl.appearance().selectedSegmentTintColor = theme.actionColor
+            let appearance = UINavigationBarAppearance()
+            let textAttributes = [NSAttributedString.Key.foregroundColor:theme.headingColor]
+            appearance.titleTextAttributes = textAttributes as [NSAttributedString.Key : Any]
+            UINavigationBar.appearance().standardAppearance = appearance
         }else{
-            print("Doesn't support earlier version of iOS 12.0")
+            print("Doesn't support earlier version of iOS 13.0")
         }
         UISegmentedControl.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
         UISwitch.appearance().onTintColor = theme.headingColor
         JSButtonWithoutIndexing.appearance().tintColor = theme.headingColor
-        let appearance = UINavigationBarAppearance()
-        let textAttributes = [NSAttributedString.Key.foregroundColor:theme.headingColor]
-        appearance.titleTextAttributes = textAttributes as [NSAttributedString.Key : Any]
-        UINavigationBar.appearance().standardAppearance = appearance
+      
+        
     }
     
     static func applyFont(){

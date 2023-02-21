@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name             = "JSColorPalette"
-s.version          = "0.0.6"
+s.version          = "0.1.0"
 s.summary          = "Custom pod creation for iOS"
 s.description      = "Helps to manage color theme for app."
 s.homepage         = "https://github.com/JastySaran"
