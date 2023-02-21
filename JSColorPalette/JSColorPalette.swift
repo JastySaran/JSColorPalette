@@ -40,7 +40,7 @@ enum Theme: String {
         switch self {
         case .system:
             if #available(iOS 12.0, *) {
-                let interfaceStyle = UIUserInterfaceStyle.init(rawValue: Theme.getAppMode()) ?? .light
+                let interfaceStyle = UIUserInterfaceStyle.init(rawValue: ThemeManager.getAppMode()) ?? .light
             if interfaceStyle == .dark{
                 return UIColor.white
             }
@@ -69,6 +69,12 @@ enum Theme: String {
 
 struct ThemeManager {
   
+    static func getAppMode() -> Int {
+        let string =
+        UserDefaults.standard.integer(forKey: "userInterfaceStyle")
+        return string
+    }
+    
     // CurrentTheme() Stores the current theme selected by user and return Theme
     static func currentTheme(theme:Theme) -> Theme {
        return theme
@@ -79,7 +85,11 @@ struct ThemeManager {
         JSHeaderLabel.appearance().textColor = theme.headingColor
         JSActionLabel.appearance().textColor = theme.actionColor
         UISwitch.appearance().thumbTintColor = theme.actionColor
-        UISegmentedControl.appearance().selectedSegmentTintColor = theme.actionColor
+        if #available(iOS 12.0, *) {
+            UISegmentedControl.appearance().selectedSegmentTintColor = theme.actionColor
+        }else{
+            print("Doesn't support earlier version of iOS 12.0")
+        }
         UISegmentedControl.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
         UISwitch.appearance().onTintColor = theme.headingColor
         JSButtonWithoutIndexing.appearance().tintColor = theme.headingColor
