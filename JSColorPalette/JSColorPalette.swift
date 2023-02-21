@@ -65,9 +65,44 @@ enum Theme: String {
         }
     }
     
-    static func getAppMode() -> Int {
-        let string =
-        UserDefaults.standard.integer(forKey: "userInterfaceStyle")
-        return string
+}
+
+struct ThemeManager {
+  
+    // CurrentTheme() Stores the current theme selected by user and return Theme
+    static func currentTheme(theme:Theme) -> Theme {
+       return theme
+    }
+    
+    static func applyTheme(theme:Theme) {
+        JSButtonWithIndexing.appearance().backgroundColor = theme.actionColor
+        JSHeaderLabel.appearance().textColor = theme.headingColor
+        JSActionLabel.appearance().textColor = theme.actionColor
+        UISwitch.appearance().thumbTintColor = theme.actionColor
+        UISegmentedControl.appearance().selectedSegmentTintColor = theme.actionColor
+        UISegmentedControl.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
+        UISwitch.appearance().onTintColor = theme.headingColor
+        JSButtonWithoutIndexing.appearance().tintColor = theme.headingColor
+        let appearance = UINavigationBarAppearance()
+        let textAttributes = [NSAttributedString.Key.foregroundColor:theme.headingColor]
+        appearance.titleTextAttributes = textAttributes as [NSAttributedString.Key : Any]
+        UINavigationBar.appearance().standardAppearance = appearance
+    }
+    
+    static func applyFont(){
+        //HeaderLabel.appearance().font = UIFont.init(name: "Montserrat-Medium", size: 16.0)
+        UILabel.appearance().font = UIFont.init(name: "Montserrat-Medium", size: 8.0)
     }
 }
+
+class JSButtonWithoutIndexing: UIButton{ }
+class JSHeaderLabel: UILabel{ }
+class JSSolidView: UIView { }
+class JSButtonWithIndexing: UIButton{
+    var indexPath:IndexPath?
+}
+class JSActionLabel: UILabel{
+    
+}
+
+ 
